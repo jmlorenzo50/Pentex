@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+
+       <f:event type="preRenderView" listener="#{latchMb.checkSecurity}"/>
+
+       <h:head>
+           <title>TestTomcat</title>
+           <style>
+               #contenedor {
+                   width: 255px;
+                   height: 500px;
+
+                   position: absolute;
+                   top: 50%;
+                   left: 50%;
+
+                   margin-top: -250px;   /* height/2 = 500px / 2 */
+                   margin-left: -250px;  /* width/2 = 500px / 2 */            
+               }            
+
+               #botonera {
+                    float: left;
+                    padding-left: 10px;
+                    padding-top: 30px;
+               }
+           </style>
+       </h:head>
+       <h:body>
+           <div id="contenedor">
+               <img src="images/logo.png" alt=""/>
+
+               <div id="botonera">
+
+
+               <h:form>
+                   <p:growl id="growl" life="2000" />
+                    <p:outputPanel deferred="true">
+                        <h3>Latch v1.0</h3>
+                       <h:outputText value="Token generado" />
+                       <p:inputText value="#{latchMb.token}" />
+                       <p:commandButton value="Vincular"    id="ajax1" update="output growl" actionListener="#{latchMb.solicitarToken}"   styleClass="ui-priority-primary" />
+                       <p:commandButton value="Desvincular" id="ajax2" update="output growl" actionListener="#{latchMb.desvincularToken}" styleClass="ui-priority-primary" />
+                    </p:outputPanel>   
+                    <div style="height:50px"></div>
+                    <p:outputPanel deferred="true">
+                       <h:outputText value="Código pareado" />
+                       <p:inputText id="output" value="#{latchMb.codigoPareado}" readonly="true" />
+                    </p:outputPanel>
+
+                    <p:outputPanel deferred="true">
+                       <p:commandButton value="Acceder" update="growl" actionListener="#{latchMb.acceder}" styleClass="ui-priority-primary" />
+                    </p:outputPanel>
+
+               </h:form>     
+
+               </div>
+           </div>        
+       </h:body>
+    </f:view>
+</html>
